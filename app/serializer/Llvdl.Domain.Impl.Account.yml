@@ -1,0 +1,12 @@
+Llvdl\Domain\Impl\Account:
+    exclusion_policy: ALL
+    exclude: false
+    access_type: public_method
+    properties:
+    virtual_properties:
+        getId:
+            serialized_name: id
+            type: string
+        getName:
+            serialized_name: name
+            type: string

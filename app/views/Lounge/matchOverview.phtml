@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dominoes Again!</title>
+        <?php include __DIR__ . '/_headers.phtml'; ?>
+    </head>
+    <body>
+        <div class="container" role="main">
+            <?php include __DIR__ . '/_account.phtml'; ?>
+            <?php include __DIR__ . '/_messages.phtml'; ?>
+            <div class="jumbotron">
+                <h1>Match Overview</h1>
+                <p class="description">
+                    Find a game to join to play with friends, stranger or just against the computer.
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="match-overview" v-bind:class="{ loaded: loaded }">
+                        <div v-if="loaded">
+                            <ul v-if="matches">
+                                <li v-for="match in matches">
+                                    <a class="match" v-bind:href="'/match/' + match.id">{{match.name}} - {{match.createdAt}}</a>
+                                </li>
+                            </ul>
+                            <p class="no-matches-found" v-else>
+                                No matches are available.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/vue/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                el: '#match-overview',
+                data: {
+                    loaded: false,
+                    matches: []
+                }
+            });
+
+            $(function() {
+                $.get('/api/match')
+                    .done(function(matches) {
+                        app.loaded = true;
+                        app.matches = matches.length === 0 ? null : matches;
+                    });
+            });
+        </script>
+    </body>
+</html>

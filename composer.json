@@ -1,0 +1,60 @@
+{
+    "name": "llvdl/dominoes-slim",
+    "description": "Dominoes",
+    "type": "project",
+    "require": {
+        "slim/slim": "^3.5",
+        "php-di/slim-bridge": "^1.0",
+        "illuminate/database": "5.2.*",
+        "jenssegers/mongodb": "^3.1",
+        "jms/serializer": "^1.4",
+        "davidepastore/slim-validation": "^0.3.1",
+        "aura/html": "^2.4",
+        "slim/flash": "^0.2.0",
+        "twbs/bootstrap": "^3.3",
+        "components/jquery": "^3.1",
+        "monolog/monolog": "^1.22",
+        "aura/session": "^2.1",
+        "fortawesome/font-awesome": "^4.7"
+    },
+    "require-dev": {
+        "codeception/verify": "*",
+        "codeception/c3": "^2.0",
+        "codeception/base": "^2.2",
+        "runcmf/runtracy": "^0.2.8",
+        "mongofill/mongofill": "dev-master",
+        "se/selenium-server-standalone": "^3.2"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "mkdir -p web/bootstrap",
+            "cp -R vendor/twbs/bootstrap/dist/* web/bootstrap/",
+            "mkdir -p web/jquery",
+            "cp -R vendor/components/jquery/* web/jquery",
+            "mkdir -p web/font-awesome",
+            "cp -R vendor/fortawesome/font-awesome/css web/font-awesome",
+            "cp -R vendor/fortawesome/font-awesome/fonts web/font-awesome"
+        ],
+        "post-update-cmd": [
+            "mkdir -p web/bootstrap",
+            "cp -R vendor/twbs/bootstrap/dist/* web/bootstrap/",
+            "mkdir -p web/jquery",
+            "cp -R vendor/components/jquery/* web/jquery",
+            "mkdir -p web/font-awesome",
+            "cp -R vendor/fortawesome/font-awesome/css web/font-awesome",
+            "cp -R vendor/fortawesome/font-awesome/fonts web/font-awesome"
+        ]
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Llvdl\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lennaert van der Linden",
+            "email": "lennaertvanderlinden@gmail.com"
+        }
+    ]
+}

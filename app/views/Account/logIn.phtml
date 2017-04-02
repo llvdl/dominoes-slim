@@ -1,0 +1,23 @@
+<?php use Llvdl\Responder\Common\Form; ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Log in</title>
+        <?php include __DIR__ . '/_headers.phtml'; ?>
+    </head>
+    <body>
+        <div class="container" role="main">
+            <?php include __DIR__ . '/_messages.phtml'; ?>
+
+            <?php $form = new Form($data, $errors); ?>
+            <?php $form->renderStart(); ?>
+                <h1>Log in</h1>
+                <?php $form->renderTextField('name', 'Name'); ?>
+                <?php $form->renderPasswordField('password', 'Password'); ?>
+                <p>
+                    <button type="submit">Log In</button>
+                </p>
+            <?php $form->renderEnd(); ?>
+        </div>
+    </body>
+</html>

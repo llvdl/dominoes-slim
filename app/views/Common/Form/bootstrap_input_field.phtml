@@ -1,0 +1,17 @@
+<?php use Aura\Html\Escaper as e; ?>
+<div class="form-group<?php if(isset($errors[$name])): ?> has-danger has-feedback<?php endif; ?>">
+    <label class="col-2 col-form-label" for="<?php print e::a($id); ?>"><?php print e::h($label); ?></label>
+    <div class="col-10">
+        <input
+            name="<?php print e::a($name); ?>"
+            id="<?php print e::a($id); ?>"
+            type="<?php print e::a($type); ?>"
+            value="<?php print array_key_exists($name, $data) ? $data[$name] : ''; ?>"
+            class="form-control<?php if(isset($errors[$name])): ?> form-control-danger<?php endif; ?>"/>
+        <?php if(isset($errors[$name])): ?>
+            <?php foreach($errors[$name] as $error): ?>
+                <div class="error text-danger"><?php print e::h($error); ?></div>
+            <?php endforeach ?>
+        <?php endif; ?>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+vendor
+web/bootstrap
+web/font-awesome
+web/jquery
+tests/_output

@@ -1,0 +1,18 @@
+<?php use Aura\Html\Escaper as e; ?>
+<div class="row form-group account">
+    <div class="col-md-4 pull-right">
+        <?php if ($currentAccount): ?>
+            <div class="dropdown text-right">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><strong class="account-name"><i class="fa fa-user"></i> <?php print e::h($currentAccount->getName()); ?></strong>
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                   <li><a href="/logout">Log Out</a></li>
+                </ul>
+            </div>
+        <?php else: ?>
+            <p class="text-right">
+                <a href="/login">Log In</a>
+            </p>
+        <?php endif; ?>
+    </div>
+</div>

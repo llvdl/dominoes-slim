@@ -1,0 +1,11 @@
+<?php use Aura\Html\Escaper as e; ?>
+<?php if(isset($messages)): ?>
+    <?php foreach ($messages->getMessages() as $type => $labels): ?>
+        <?php foreach ($labels as $label): ?>
+            <div class="alert alert-<?php print e::a($type); ?> alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?php print e::h($label); ?>
+            </div>
+        <?php endforeach ?>
+    <?php endforeach ?>
+<?php endif ?>

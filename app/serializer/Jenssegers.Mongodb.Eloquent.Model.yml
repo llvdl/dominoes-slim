@@ -1,0 +1,2 @@
+Jenssegers\Mongodb\Eloquent\Model:
+    exclusion_policy: ALL

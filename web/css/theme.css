@@ -1,0 +1,13 @@
+body {
+    margin-top: 16px;
+}
+
+.row.account button {
+    border: none;
+    background: transparent;
+    padding: none;
+    color: inherit;
+    cursor: pointer;
+    text-shadow: none;
+    box-shadow: none;
+}

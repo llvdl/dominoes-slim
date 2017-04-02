@@ -1,0 +1,75 @@
+<?php use Aura\Html\Escaper as e; ?>
+<?php use Llvdl\Responder\Common\Form; ?>
+<?php /** @var Llvdl\Domain\Match $match */ ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My first match</title>
+        <?php include __DIR__ . '/_headers.phtml'; ?>
+    </head>
+    <body>
+        <div class="container">
+            <?php include __DIR__ . '/_account.phtml'; ?>
+            <?php include __DIR__ . '/_messages.phtml'; ?>
+            <div class="jumbotron">
+                <h1>
+                    Match details
+                    - <span class="name"><?php print e::h($match->getName()); ?></span>
+                    <small>
+                        (<span class="match-id"><?php print e::h($match->getId()); ?>)</span>
+                    </small>
+                </h1>
+            </div>
+
+            <form role="form" method="post" id="players" v-if="match" v-bind:class="{ loaded: loaded }">
+                <p v-for="(account, number) in match.players">
+                    Player {{number}}:
+                    <span v-if="account" v-bind:class="['seat-' + number]">
+                        {{account.name}}
+                        <span v-if="currentAccountId &amp;&amp; account.id === currentAccountId">
+                            <button class="btn btn-default" name="leave" v-bind:value="number">Leave</button>
+                        </span>
+                    </span>
+                    <span v-else="account" v-bind:class="['seat-' + number]">
+                        <button name="join" v-bind:value="number" v-bind:class="{btn: true, 'btn-default': true, disabled: !loggedIn}" v-bind:disabled="!loggedIn">Join</button>
+                    </span>
+                </p>
+                <p>
+                    <button name="start" v-bind:class="{btn: true, 'btn-primary': true, disabled: !match.can_start}" v-bind:disabled="!match.can_start">Start</button>
+                </p>
+            </form>
+        </div>
+
+        <script src="/vue/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                el: '#players',
+                data: {
+                    loaded: false,
+                    match: null,
+                    loggedIn: <?php print $currentAccount ? 'true' : 'false' ?>,
+                    currentAccountId: <?php print $currentAccount ? sprintf('\'%s\'', $currentAccount->getId()) : 'null' ?>
+                }
+            });
+
+            $(function() {
+                var revision = '<?php print (int) $match->getRevision(); ?>';
+                var timeout = 2000;
+
+                function testForRefresh() {
+                    $.get('/api/match/<?php print $match->getId(); ?>')
+                        .done(function(data) {
+                            if (app.match === null || app.match.revision !== data.revision) {
+                                app.match = data;
+                                app.loaded = true;
+                            }
+
+                            window.setTimeout(testForRefresh, timeout);
+                        });
+                }
+
+                testForRefresh();
+            })
+        </script>
+    </body>
+</html>

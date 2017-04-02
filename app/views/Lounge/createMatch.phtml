@@ -1,0 +1,23 @@
+<?php use Llvdl\Responder\Common\Form; ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Match</title>
+        <?php include __DIR__ . '/_headers.phtml'; ?>
+    </head>
+    <body>
+        <div class="container" role="main">
+            <?php include __DIR__ . '/_account.phtml'; ?>
+            <?php include __DIR__ . '/_messages.phtml'; ?>
+
+            <?php $form = new Form($data, $errors); ?>
+            <?php $form->renderStart(); ?>
+                <h1>Create new match</h1>
+                <?php $form->renderTextField('name', 'Name'); ?>
+                <p>
+                    <button type="submit">Create</button>
+                </p>
+            <?php $form->renderEnd(); ?>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+# Codeception Test Suite Configuration
+#
+# Suite for acceptance tests.
+# Perform tests in browser using the WebDriver or PhpBrowser.
+# If you need both WebDriver and PHPBrowser tests - create a separate suite.
+
+class_name: AcceptanceTester
+modules:
+    enabled:
+        - Asserts
+        - \Helper\Acceptance
+        - \Helper\Mongo
+        - WebDriver:
+            url: 'http://localhost:8000'
+            browser: chrome
+
+gherkin:
+    contexts:
+        default:
+            - AcceptanceTester
+        tag:
+            account:
+                - Step\Acceptance\Account
+            welcome:
+                - Step\Acceptance\Welcome
+            create_account:
+                - Step\Acceptance\CreateAccount
+            create_match:
+                - Step\Acceptance\CreateMatch
+            match_overview:
+                - Step\Acceptance\MatchOverview
+            join_match:
+                - Step\Acceptance\JoinMatch
+            start_match:
+                - Step\Acceptance\StartMatch

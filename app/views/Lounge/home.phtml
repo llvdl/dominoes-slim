@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dominoes Again!</title>
+        <?php include __DIR__ . '/_headers.phtml'; ?>
+    </head>
+    <body>
+        <div class="container" role="main">
+            <?php include __DIR__ . '/_account.phtml'; ?>
+            <?php include __DIR__ . '/_messages.phtml'; ?>
+            <div class="jumbotron">
+                <h1>Dominoes Again!</h1>
+                <p class="description">
+                    Welcome to Dominoes Again! Here you can play dominoes with friends or the computer.
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Account</h2>
+                    <a href="/create-account">Create new account</a>
+                </div>
+                <div class="col-md-4">
+                    <h2>Matches</h2>
+                    <ul>
+                        <li><a href="/match">Match overview</a></li>
+                        <li><a href="/create-match">Create new match</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

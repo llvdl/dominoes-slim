@@ -1,0 +1,29 @@
+Llvdl\Domain\Impl\Match:
+    exclusion_policy: ALL
+    exclude: false
+    access_type: public_method
+    properties:
+    virtual_properties:
+        getId:
+            serialized_name: id
+            type: string
+        getName:
+            serialized_name: name
+            type: string
+        # getTeam1Score:
+        #     serialized_name: team1Score
+        #     type: integer
+        # getTeam2Score:
+        #     serialized_name: team2Score
+        #     type: integer
+        getCreatedAtAsIso:
+            serialized_name: createdAt
+            type: string
+        getRevision:
+            serialized_name: revision
+            type: string
+        getPlayers:
+            serialized_name: players
+        canStart:
+            serialized_name: can_start
+            type: boolean
