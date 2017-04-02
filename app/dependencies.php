@@ -17,12 +17,6 @@ use Psr\Log\LoggerInterface;
 use Slim\Flash\Messages;
 use Aura\Session\Session;
 
-function env($param, $default = null) {
-    $value = filter_input(INPUT_ENV, $param);
-
-    return $value ?: $default;
-}
-
 return [
     Capsule::class => function (ContainerInterface $container) {
         $config = $container->get('settings.mongodb');
