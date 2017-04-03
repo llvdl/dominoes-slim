@@ -21,20 +21,23 @@
                 </h1>
             </div>
 
+            <p v-if="loaded &amp;&amp; match.state == 'new'">Match has not been started.</p>
+            <p v-if="loaded &amp;&amp; match.state == 'in_progress'" class="state">Match is in progress.</p>
+
             <form role="form" method="post" id="players" v-if="match" v-bind:class="{ loaded: loaded }">
                 <p v-for="(account, number) in match.players">
                     Player {{number}}:
                     <span v-if="account" v-bind:class="['seat-' + number]">
                         {{account.name}}
-                        <span v-if="currentAccountId &amp;&amp; account.id === currentAccountId">
+                        <span v-if="match.state == 'new' &amp;&amp; currentAccountId &amp;&amp; account.id === currentAccountId">
                             <button class="btn btn-default" name="leave" v-bind:value="number">Leave</button>
                         </span>
                     </span>
-                    <span v-else="account" v-bind:class="['seat-' + number]">
-                        <button name="join" v-bind:value="number" v-bind:class="{btn: true, 'btn-default': true, disabled: !loggedIn}" v-bind:disabled="!loggedIn">Join</button>
+                    <span v-else="" v-bind:class="['seat-' + number]">
+                        <button v-if="match.state == 'new'" name="join" v-bind:value="number" v-bind:class="{btn: true, 'btn-default': true, disabled: !loggedIn}" v-bind:disabled="!loggedIn">Join</button>
                     </span>
                 </p>
-                <p>
+                <p v-if="match.state == 'new'">
                     <button name="start" v-bind:class="{btn: true, 'btn-primary': true, disabled: !match.can_start}" v-bind:disabled="!match.can_start">Start</button>
                 </p>
             </form>
@@ -43,7 +46,7 @@
         <script src="/vue/vue.min.js"></script>
         <script>
             var app = new Vue({
-                el: '#players',
+                el: '.container',
                 data: {
                     loaded: false,
                     match: null,
@@ -60,7 +63,8 @@
                     $.get('/api/match/<?php print $match->getId(); ?>')
                         .done(function(data) {
                             if (app.match === null || app.match.revision !== data.revision) {
-                                app.match = data;
+                                app.match = data.match;
+                                app.match['can_start'] = data.can_start;
                                 app.loaded = true;
                             }
 

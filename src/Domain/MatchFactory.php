@@ -8,6 +8,7 @@ class MatchFactory
     {
         $match = new Impl\Match();
         $match->setName($name);
+        $match->setState(MatchState::createNew());
 
         return $match;
     }

@@ -9,6 +9,11 @@ trait AccountData
         return $this->{self::ATTR_ID};
     }
 
+    public function setId(?string $id) : void
+    {
+        $this->{self::ATTR_ID} = $id;
+    }
+
     public function getName() : string
     {
         return $this->{self::ATTR_NAME};

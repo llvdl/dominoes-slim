@@ -116,10 +116,20 @@ trait MatchData
     public function getPlayers() : array
     {
         return [
-            '1' => $this->player1,
-            '2' => $this->player2,
-            '3' => $this->player3,
-            '4' => $this->player4
+            '1' => $this->{self::ATTR_PLAYER_1},
+            '2' => $this->{self::ATTR_PLAYER_2},
+            '3' => $this->{self::ATTR_PLAYER_3},
+            '4' => $this->{self::ATTR_PLAYER_4}
         ];
+    }
+
+    public function getState() : Domain\MatchState
+    {
+        return Domain\MatchState::createFromString($this->{self::ATTR_STATE});
+    }
+
+    public function setState(Domain\MatchState $state)
+    {
+        $this->{self::ATTR_STATE} = (string) $state;
     }
 }

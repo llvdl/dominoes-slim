@@ -4,10 +4,11 @@ namespace Domain\Impl;
 
 use Llvdl\Domain;
 use Llvdl\Domain\Impl;
+use Llvdl\Domain\MatchState;
 use Llvdl\Domain\Exception\InvalidMatchJoinException;
 use Llvdl\Domain\Exception\InvalidMatchLeaveException;
 
-class AccountRepositoryTest extends \Codeception\Test\Unit
+class MatchTest extends \Codeception\Test\Unit
 {
     protected function _before()
     {
@@ -127,6 +128,7 @@ class AccountRepositoryTest extends \Codeception\Test\Unit
         $account2->setAttribute(Impl\Account::ATTR_ID, '2');
 
         $match = new Impl\Match();
+        $match->setState(MatchState::createNew());
         $match->join(1, $account1);
 
         $this->expectException(InvalidMatchLeaveException::class);
@@ -142,6 +144,7 @@ class AccountRepositoryTest extends \Codeception\Test\Unit
         $account = new Impl\Account();
 
         $match = new Impl\Match();
+        $match->setState(MatchState::createNew());
 
         $this->expectException(InvalidMatchLeaveException::class);
 
@@ -154,21 +157,24 @@ class AccountRepositoryTest extends \Codeception\Test\Unit
     public function canStartIfAllSeatsAreAssignedToAPlayer()
     {
         $account = new Impl\Account();
+        $account->setId('1');
 
         $match = new Impl\Match();
-        $this->assertSame(false, $match->canStart());
+        $match->setState(MatchState::createNew());
+
+        $this->assertSame(false, $match->canStart($account));
 
         $match->join(1, $account);
-        $this->assertSame(false, $match->canStart());
+        $this->assertSame(false, $match->canStart($account));
 
         $match->join(2, $account);
-        $this->assertSame(false, $match->canStart());
+        $this->assertSame(false, $match->canStart($account));
 
         $match->join(3, $account);
-        $this->assertSame(false, $match->canStart());
+        $this->assertSame(false, $match->canStart($account));
 
         $match->join(4, $account);
-        $this->assertSame(true, $match->canStart());
+        $this->assertSame(true, $match->canStart($account));
     }
 
     /**

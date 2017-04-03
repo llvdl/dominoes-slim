@@ -6,7 +6,7 @@ class MatchOverview
 {
     protected $I;
 
-    function __construct(\AcceptanceTester $I)
+    public function __construct(\AcceptanceTester $I)
     {
         $this->I = $I;
     }
@@ -24,7 +24,9 @@ class MatchOverview
         $this->I->insertDocument('matches', [
             "name" => "Some match",
             "updated_at" => $this->I->createMongoDate('Y-m-d H:i:s', '2017-02-20 22:10:51'),
-            "created_at" => $this->I->createMongoDate('Y-m-d H:i:s', '2017-02-20 22:10:51')
+            "created_at" => $this->I->createMongoDate('Y-m-d H:i:s', '2017-02-20 22:10:51'),
+            'state' => 'new',
+            'revision' => 1
         ]);
     }
 

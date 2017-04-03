@@ -24,6 +24,6 @@ Llvdl\Domain\Impl\Match:
             type: string
         getPlayers:
             serialized_name: players
-        canStart:
-            serialized_name: can_start
-            type: boolean
+        getState:
+            serialized_name: state
+            type: string

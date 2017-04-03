@@ -14,7 +14,12 @@ Feature: S008-start-match
 
   Scenario: start game
     When I am on the match detail page
-    Then the start button is disabled
+    Then I see the game has not started
+    And the start button is disabled
     When all seats are taken by "player1"
     And I wait for the page to refresh
     Then the start button is enabled
+    When I press the start button
+    Then I see the game has not started
+    And the start button is not shown
+    And there are no leave buttons

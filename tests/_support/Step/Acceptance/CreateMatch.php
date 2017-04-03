@@ -6,11 +6,11 @@ class CreateMatch
 {
     protected $I;
 
-    function __construct(\AcceptanceTester $I)
+    public function __construct(\AcceptanceTester $I)
     {
         $this->I = $I;
     }
-    
+
     /**
      * @Then I should see the match creation form
      */

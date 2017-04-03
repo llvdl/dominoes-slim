@@ -18,5 +18,6 @@ interface Match
 
     public function getRevision() : ?int;
 
-    public function canStart() : bool;
+    public function canStart(?Account $account) : bool;
+    public function start(Account $account) : void;
 }

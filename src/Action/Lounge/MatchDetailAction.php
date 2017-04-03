@@ -3,6 +3,10 @@
 namespace Llvdl\Action\Lounge;
 
 use Llvdl\Domain\MatchRepository;
+use Llvdl\Domain\Command\TakeSeatCommand;
+use Llvdl\Domain\Command\LeaveSeatCommand;
+use Llvdl\Domain\Command\StartMatchCommand;
+use Llvdl\Domain\Exception\MatchStartException;
 use Llvdl\Domain\Exception\InvalidMatchJoinException;
 use Llvdl\Domain\Exception\InvalidMatchLeaveException;
 use Llvdl\Service\AccountSwitcher;
@@ -27,6 +31,9 @@ class MatchDetailAction
         Response $response,
         MatchRepository $matchRepository,
         AccountSwitcher $accountSwitcher,
+        TakeSeatCommand $takeSeatCommand,
+        LeaveSeatCommand $leaveSeatCommand,
+        StartMatchCommand $startMatchCommand,
         Messages $messages,
         ViewInterface $view,
         string $matchId
@@ -39,19 +46,22 @@ class MatchDetailAction
 
         if ($request->getParsedBody()) {
             $data = $request->getParsedBody();
+            $currentAccount = $accountSwitcher->getCurrentAccount();
 
             try {
                 if (isset($data['join'])) {
-                    $match->join((int) $data['join'], $accountSwitcher->getCurrentAccount());
-                    $matchRepository->save($match);
+                    $takeSeatCommand($match, $data['join'], $currentAccount);
                 } elseif (isset($data['leave'])) {
-                    $match->leave((int) $data['leave'], $accountSwitcher->getCurrentAccount());
-                    $matchRepository->save($match);
+                    $leaveSeatCommand($match, $data['leave'], $currentAccount);
+                } elseif (isset($data['start'])) {
+                    $startMatchCommand($match, $currentAccount);
                 }
             } catch (InvalidMatchJoinException $e) {
                 $messages->addMessage('danger', 'Error joining seat: ' . $e->getMessage());
             } catch (InvalidMatchLeaveException $e) {
                 $messages->addMessage('danger', 'Error leaving seat: '. $e->getMessage());
+            } catch (MatchStartException $e) {
+                $messages->addMessage('danger', 'Error starting match: ' . $e->getMessage());
             }
 
             return $response->withRedirect($request->getUri()->getPath());

@@ -8,7 +8,7 @@ class StartMatch
 {
     protected $I;
 
-    function __construct(\AcceptanceTester $I)
+    public function __construct(\AcceptanceTester $I)
     {
         $this->I = $I;
     }
@@ -27,6 +27,7 @@ class StartMatch
             'name' => self::class,
             'updated_at' => $this->I->createMongoDate('Y-m-d H:i:s', '2017-02-20 22:10:51'),
             'created_at' => $this->I->createMongoDate('Y-m-d H:i:s', '2017-02-20 22:10:51'),
+            'state' => 'new',
             'revision' => 1
         ]);
     }
@@ -106,5 +107,45 @@ class StartMatch
     {
         $this->I->dontSee('Start', 'button.disabled');
         $this->I->see('Start', 'button');
+    }
+
+    /**
+     * @Then I see the game has not started
+     */
+    public function iSeeTheGameHasNotStarted()
+    {
+        $this->I->See('Match has not been started.');
+    }
+
+    /**
+     * @Then I see the game has not started
+     */
+    public function iSeeTheGameHasStarted()
+    {
+        $this->I->dontSee('Match is in progress.');
+    }
+
+    /**
+     * @When I press the start button
+     */
+    public function iPressTheStartButton()
+    {
+        $this->I->click('Start');
+    }
+
+    /**
+     * @Then the start button is not shown
+     */
+    public function theStartButtonIsNotShown()
+    {
+        $this->I->dontSee('Start', 'button');
+    }
+
+    /**
+     * @Then there are no leave buttons
+     */
+    public function thereAreNoLeaveButtons()
+    {
+        $this->I->dontSee('Leave', 'button');
     }
 }
