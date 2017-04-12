@@ -7,7 +7,10 @@
         <title>My first match</title>
         <?php include __DIR__ . '/_headers.phtml'; ?>
     </head>
-    <body>
+    <body
+        <?php if ($currentAccount): ?>data-current-account="<?php print e::a($currentAccount->getId()); ?>"<?php endif; ?>
+        data-match-id="<?php print e::a($match->getId()); ?>"
+        >
         <div class="container">
             <?php include __DIR__ . '/_account.phtml'; ?>
             <?php include __DIR__ . '/_messages.phtml'; ?>
@@ -43,37 +46,6 @@
             </form>
         </div>
 
-        <script src="/vue/vue.min.js"></script>
-        <script>
-            var app = new Vue({
-                el: '.container',
-                data: {
-                    loaded: false,
-                    match: null,
-                    loggedIn: <?php print $currentAccount ? 'true' : 'false' ?>,
-                    currentAccountId: <?php print $currentAccount ? sprintf('\'%s\'', $currentAccount->getId()) : 'null' ?>
-                }
-            });
-
-            $(function() {
-                var revision = '<?php print (int) $match->getRevision(); ?>';
-                var timeout = 2000;
-
-                function testForRefresh() {
-                    $.get('/api/match/<?php print $match->getId(); ?>')
-                        .done(function(data) {
-                            if (app.match === null || app.match.revision !== data.revision) {
-                                app.match = data.match;
-                                app.match['can_start'] = data.can_start;
-                                app.loaded = true;
-                            }
-
-                            window.setTimeout(testForRefresh, timeout);
-                        });
-                }
-
-                testForRefresh();
-            })
-        </script>
+        <script src="/js/match-detail.js"></script>
     </body>
 </html>

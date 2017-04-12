@@ -33,23 +33,6 @@
             </div>
         </div>
 
-        <script src="/vue/vue.min.js"></script>
-        <script>
-            var app = new Vue({
-                el: '#match-overview',
-                data: {
-                    loaded: false,
-                    matches: []
-                }
-            });
-
-            $(function() {
-                $.get('/api/match')
-                    .done(function(matches) {
-                        app.loaded = true;
-                        app.matches = matches.length === 0 ? null : matches;
-                    });
-            });
-        </script>
+        <script src="/js/match-overview.js"></script>
     </body>
 </html>

@@ -31,6 +31,21 @@ Also the following PHP extensions must be installed:
 * PECL Mongo DB extension (not the PHP mongo extension, see http://php.net/manual/en/mongodb.installation.pecl.php)
 
 
+Installation
+------------
+Use [composer](https://getcomposer.org/) to install the PHP dependencies:
+
+    composer install
+
+To install the javascript dependencies, you will need npm and [webpack](https://webpack.js.org/).
+
+    npm install vue
+
+To install or update the javascript files, run webpack:
+
+    webpack
+
+
 Testing
 -------
 Tests are written using [codeception](http://codeception.com/) and can be found in the `tests` folder. So far only acceptance tests have been added.

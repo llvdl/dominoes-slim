@@ -2,6 +2,8 @@ vendor
 web/bootstrap
 web/font-awesome
 web/jquery
-tests/_output
+web/js
 web/exception.log
 web/exception--*.html
+tests/_output
+node_modules/
