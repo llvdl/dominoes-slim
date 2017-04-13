@@ -39,7 +39,7 @@ Use [composer](https://getcomposer.org/) to install the PHP dependencies:
 
 To install the javascript dependencies, you will need npm and [webpack](https://webpack.js.org/).
 
-    npm install vue
+    npm install
 
 To install or update the javascript files, run webpack:
 

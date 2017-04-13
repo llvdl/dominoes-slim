@@ -20,6 +20,6 @@ Feature: S008-start-match
     And I wait for the page to refresh
     Then the start button is enabled
     When I press the start button
-    Then I see the game has not started
+    Then I see the game has started
     And the start button is not shown
     And there are no leave buttons

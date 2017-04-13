@@ -1,0 +1,30 @@
+{
+  "name": "dominoes-slim",
+  "version": "1.0.0",
+  "description": "Dominoes ======== A dominoes game (in progress) written in part to get more experience with the following frameworks and technologies:",
+  "main": "webpack.config.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "dependencies": {
+    "vue": "^2.2.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llvdl/dominoes-slim.git"
+  },
+  "keywords": [
+    "slim"
+  ],
+  "author": "Lennaert van der Linden",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/llvdl/dominoes-slim/issues"
+  },
+  "homepage": "https://github.com/llvdl/dominoes-slim#readme"
+}

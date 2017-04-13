@@ -118,11 +118,11 @@ class StartMatch
     }
 
     /**
-     * @Then I see the game has not started
+     * @Then I see the game has started
      */
     public function iSeeTheGameHasStarted()
     {
-        $this->I->dontSee('Match is in progress.');
+        $this->I->See('Match is in progress.');
     }
 
     /**
